@@ -1,0 +1,116 @@
+import Navbar from "../components/Navbar";
+import { useState } from "react";
+export default function Signup() {
+      const [formData, setFormData] = useState({ name: '',email:'', password: '' });
+      const [error, setError] = useState({});
+      // Function to handle form submission
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    
+        // Effacer l'erreur de ce champ lorsque l'utilisateur tape
+        if (error[name]) {
+            setError((prevErrors) => {
+                const updatedErrors = { ...prevErrors };
+                delete updatedErrors[name];
+                return updatedErrors;
+            });
+        }
+    };
+    // Function to handle form submission
+    const validateForm = () => {
+        const errors = {};
+
+        if (!formData.name.trim()) {
+            errors.login = 'Le nom est requis';
+        }
+         if (!formData.email.trim()) {
+            errors.email = 'L email est requis';
+        }
+
+        if (!formData.password.trim()) {
+            errors.password = 'Le mot de passe est requis';
+        }
+
+        return errors;
+    };
+
+  return (
+    <>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-white to-red-600 dark:from-red-900 dark:via-black dark:to-red-800 transition-colors duration-500">
+      {/* Overlay: semi-transparent dark layer for better contrast */}
+      <div className="absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm z-0"></div>
+
+      <div className="relative z-10 flex w-full max-w-6xl rounded-2xl overflow-hidden ">
+        {/* Logo section */}
+        <div className="hidden md:flex w-1/2 items-center justify-center p-10">
+          <img
+            src="/logo.png" // replace with your actual path
+            alt="Logo"
+            className="max-w-[70%] object-contain drop-shadow-lg"
+          />
+        </div>
+
+        {/* Glass form section */}
+        <div className="w-full md:w-1/2 flex items-center justify-center p-8">
+          <div className="w-full max-w-md backdrop-blur-md bg-white/30 dark:bg-white/10 border border-white/30 dark:border-white/20 rounded-2xl p-8 shadow-lg">
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+              Créer un compte
+            </h2>
+            <form>
+              <div className="mb-4">
+                <label
+                  className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1"
+                  htmlFor="username"
+                >
+                  Nom d'utilisateur
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white/70 dark:bg-black/30 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1"
+                  htmlFor="email"
+                >
+                  Adresse email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white/70 dark:bg-black/30 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1"
+                  htmlFor="password"
+                >
+                  Mot de passe
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white/70 dark:bg-black/30 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition duration-300 font-semibold"
+              >
+                S’inscrire
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
+  );
+}
